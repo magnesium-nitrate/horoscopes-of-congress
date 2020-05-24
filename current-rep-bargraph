@@ -1,0 +1,66 @@
+import pandas as pd
+
+#data can be found here: https://github.com/CivilServiceUSA/us-house/blob/master/us-house/data/us-house.csv
+
+df = pd.read_csv('ushouse2.csv')
+s=[0,0,0,0,0,0,0,0,0,0,0,0]
+
+def astro(q):
+    if(q<=119):
+        return 1
+    elif(q>=120 and q<=219):
+        return 2
+    elif(q>=220 and q<=320):
+        return 3
+    elif(q>=321 and q<=420):
+        return 4
+    elif(q>=421 and q<=520):
+        return 5
+    elif(q>=521 and q<=620):
+        return 6
+    elif(q>=621 and q<=722):
+        return 7
+    elif(q>=723 and q<=822):
+        return 8
+    elif(q>=823 and q<=922):
+        return 9
+    elif(q>=923 and q<=1022):
+        return 10
+    elif(q>=1023 and q<=1122):
+        return 11
+    elif(q>=1123 and q<=1221):
+        return 12
+    elif(q>=1222):
+        return 1
+
+for value, row in df.iterrows():
+    birth = df['date_of_birth'][value]
+    birth2 = birth[5:7] + birth[8:10]
+    birth3= int(birth2)
+    #print(birth2)
+    p = astro(birth3)
+    s[p-1] = s[p-1] + 1
+    
+        
+
+
+import matplotlib.pyplot as plt; plt.rcdefaults()
+import numpy as np
+import matplotlib.pyplot as plt
+
+#objects = ('Python', 'C++', 'Java', 'Perl', 'Scala', 'Lisp')
+names = ('capricorn','aquarius','pisces','aries','taurus','gemini',
+         'cancer','leo','virgo','libra','scorpio','sagittarius')
+y_pos = np.arange(len(names))
+performance = s
+
+plt.bar(y_pos, performance, align='center', alpha=0.5)
+plt.xticks(y_pos, names)
+plt.ylabel('# of US representatives')
+plt.title('Horoscopes of US representatives')
+
+plt.show()
+print(s)
+
+
+
